@@ -1,0 +1,82 @@
+<table ng-table="$ctrl.tableParams" class="table table-hover">
+    <!--<col width="50%"/>-->
+    <!--<col width="45%"/>-->
+    <!--<col width="5%%"/>-->
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
+        <td title="'Mutant Strain'">
+            {{x.mutant_strain }}
+        </td>
+        <td title="'Genomic Position'">
+            {{x.genome_position_L2 }}
+        </td>
+        <td title="'Mutant Type'">
+            {{x.mutant_type }}
+        </td>
+        <td title="'L2 Base'">
+            {{x.ref_base_L2 }}
+        </td>
+        <td title="'Variant Base'">
+            {{x.variant_base_L2 }}
+        </td>
+        <td title="'SNV Type'">
+            {{x.snv_type }}
+        </td>
+        <td title="'Effect on Amino Acid'">
+            {{x.aa_sub }}
+        </td>
+
+        <td title="'Reference'">
+            <!-- Button trigger modal -->
+            <div style="padding: 3px">
+                <a data-toggle="modal"
+                   data-target="#ref_{{ x.genomic_position_L2}}">
+                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                </a>
+            </div>
+            <!-- Modal -->
+            <div class="modal" id="ref_{{ x.genomic_position_L2}}" tabindex="-1" role="dialog"
+                 aria-labelledby="refModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="refModalTitle">Mutant</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Stated in: {{x.ref_qid}}</h4>
+                            <h4>PMID: {{x.ref_pmid}}</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td ng-show="$ctrl.data.length==0">
+            No data
+        </td>
+    </tr>
+</table>
+<button type="button" class="btn btn-default" data-toggle="modal"
+        data-target="#mutantBatchForm_button">
+    Upload bulk annotations
+</button>
+<!-- Modal -->
+<div class="modal" id="mutantBatchForm_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <mutant-batch></mutant-batch>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
